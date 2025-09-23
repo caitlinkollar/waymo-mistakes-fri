@@ -16,5 +16,10 @@ Modify the src/llama_ros/requirements.txt
 ```
 Additionally run these commands:
 ```
-pip3 install -r src/llama_ros/requirements.txt
+uv pip install -r requirements.txt
 ```
+## Using llamacpp
+Instructions for downloading this package can be found here:
+https://github.com/abetlen/llama-cpp-python?tab=readme-ov-file#supported-backends
+This ensures the that correct backend is installed (CUDA/Metal/etc).
+Use `uv pip install`.
