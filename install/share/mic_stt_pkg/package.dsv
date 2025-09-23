@@ -1,0 +1,3 @@
+source;share/mic_stt_pkg/hook/pythonpath.ps1
+source;share/mic_stt_pkg/hook/pythonpath.dsv
+source;share/mic_stt_pkg/hook/pythonpath.sh
