@@ -4,11 +4,13 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import UInt8MultiArray, String
 import azure.cognitiveservices.speech as speechsdk
+from dotenv import load_dotenv
+import os
 
 class AzureSTTSubscriber(Node):
     def __init__(self):
         super().__init__('azure_stt_subscriber')
-
+        load_dotenv()
     
         self.subscription = self.create_subscription(
             UInt8MultiArray,
@@ -24,7 +26,7 @@ class AzureSTTSubscriber(Node):
         self.channels = 1
 
         
-        self.speech_key = "AZURE_SPEECH_KEY"
+        self.speech_key = os.getenv("AZURE_SPEECH_KEY")
         self.service_region = "centralus"
 
         self.speech_config = speechsdk.SpeechConfig(subscription=self.speech_key, region=self.service_region)
