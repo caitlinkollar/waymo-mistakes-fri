@@ -6,6 +6,8 @@ from std_msgs.msg import UInt8MultiArray
 import sounddevice as sd
 import numpy as np
 import threading
+import sounddevice as sd
+
 
 class MicAudioPublisher(Node):
     def __init__(self):
