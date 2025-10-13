@@ -97,7 +97,7 @@ class AzureSTTSubscriber(Node):
         """Called when speech is fully recognized"""
         if evt.result.reason == speechsdk.ResultReason.RecognizedSpeech:
             text = evt.result.text
-            self.get_logger().info(f"✓ Recognized: {text}")
+            self.get_logger().info(f"Recognized: {text}")
             
             # Publish transcription to ROS topic
             msg = String()
