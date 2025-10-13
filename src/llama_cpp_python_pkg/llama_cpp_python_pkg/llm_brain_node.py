@@ -16,8 +16,8 @@ class LLM_Brain(Node):
         self.subscription 
         self.llm = Llama.from_pretrained(
             # Change the model later. This model isn't really great.
-            repo_id="Qwen/Qwen2-0.5B-Instruct-GGUF",
-            filename="*q8_0.gguf",
+            repo_id="google/gemma-7b-it",
+            filename="gemma-7b-it.gguf",
             n_gpu_layers=-1,
             verbose=False
         )

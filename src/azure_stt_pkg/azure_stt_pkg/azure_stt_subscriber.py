@@ -67,11 +67,19 @@ class AzureSTTSubscriber(Node):
         # ROS2 publisher for transcriptions
         self.transcription_pub = self.create_publisher(String, '/transcription', 10)
         
+        # ROS2 subscriber for injected text from media_pipe
+        self.media_pipe_sub = self.create_subscription(
+            String,
+            '/media_pipe/text_output',  # Make sure this matches actual topic name
+            self.media_pipe_callback,
+            10
+        )
+
         # Start continuous recognition
         self.speech_recognizer.start_continuous_recognition()
         
         self.get_logger().info("Azure STT subscriber node started and listening...")
-    
+
     def audio_callback(self, msg: UInt8MultiArray):
         """Receives audio data from ROS topic and feeds it to Azure"""
         try:
@@ -121,6 +129,15 @@ class AzureSTTSubscriber(Node):
     def session_stopped_callback(self, evt):
         """Called when recognition session stops"""
         self.get_logger().info("Speech recognition session stopped")
+
+    def media_pipe_callback(self, msg: String):
+        """Receives text from media_pipe and injects it into transcription output"""
+        injected_text = msg.data.strip()
+        if injected_text:
+            self.get_logger().info(f"Injected from media_pipe: {injected_text}")
+            out_msg = String()
+            out_msg.data = f"[Injected] {injected_text}"  # Optional tag
+            self.transcription_pub.publish(out_msg)
     
     def destroy_node(self):
         """Cleanup when node is destroyed"""

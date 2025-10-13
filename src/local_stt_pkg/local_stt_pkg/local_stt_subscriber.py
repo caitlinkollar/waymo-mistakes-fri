@@ -20,7 +20,7 @@ class LocalSTTSubscriber(Node):
 
         self.transcription_pub = self.create_publisher(String, '/transcription', 10)
 
-        self.get_logger().info("Local STT subscriber node started using PocketSphinx")
+        self.get_logger().info("Local STT subscriber node started")
 
         self.recognizer = sr.Recognizer()
 
@@ -67,9 +67,9 @@ class LocalSTTSubscriber(Node):
                 self.transcription_pub.publish(msg)
 
         except sr.UnknownValueError:
-            self.get_logger().info("Sphinx could not understand audio")
+            self.get_logger().info("Could not understand audio")
         except sr.RequestError as e:
-            self.get_logger().error(f"Sphinx error: {e}")
+            self.get_logger().error(f"Error: {e}")
 
 def main(args=None):
     rclpy.init(args=args)
